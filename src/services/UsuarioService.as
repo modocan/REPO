@@ -32,7 +32,7 @@ public class UsuarioService extends Actor implements IUsuarioService{
     {
         cn = new NetConnection();
         cn.connect(GATEWAY);
-        cn.call('ContactService.dameUsuario',
+        cn.call('ContactService.dameJugador',
                 new Responder(function(_data:Object){
 
                     MonsterDebugger.trace(this, _data);

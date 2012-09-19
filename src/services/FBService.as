@@ -1,6 +1,5 @@
 package services {
-		
-	import com.facebook.graph.Facebook;
+
 	import com.hexagonstar.util.debug.Debug;
 	
 	import events.ConfiguradorEvent;
@@ -63,9 +62,11 @@ public class FBService extends Actor implements IFBService {
 
         dispatch(new UsuarioEvent(UsuarioEvent.FB_INICIADO));
 
-        var evento:ConfiguradorEvent = new ConfiguradorEvent(ConfiguradorEvent.NOMBRE_USUARIO);
+
+        // TODO primero comprobamos si el jugador existe en BBDD y luego hacemos el resto
+        /*var evento:ConfiguradorEvent = new ConfiguradorEvent(ConfiguradorEvent.NOMBRE_USUARIO);
         evento.datos.nombre = usuario.nombre+' '+usuario.apellidos;
-        eventDispatcher.dispatchEvent(evento);
+        eventDispatcher.dispatchEvent(evento);*/
     }
 
 

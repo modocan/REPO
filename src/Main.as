@@ -8,7 +8,6 @@ package
 	import org.robotlegs.core.IContext;
 	
 	[SWF(frameRate="24", height="800", width="810")]
-	
 	public class Main extends MovieClip {
 		
 		private var contexto:IContext;
