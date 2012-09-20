@@ -379,17 +379,41 @@ class ContactService
 	
 	
 	
+	public function insertaGanadorCompartir($id){
+		//COMPRUEBO QUE NO ESTE A 1
+		//ACTUALIZO A 1
+		//INSERT EN GANADORES
 	
+	}
+	
+	//ACTUALIZAR NOTA E INSERTAR SI PROCEDE
+	public function insertaGanadorMatricula($id, $nota, $juego, $matricula){
+		
+		//ACTUALIZO NOTA
+		////COMPRUEBO QUE NO ESTE INSERTADO 4 VECES si es matricula
+		//INSERT EN GANADORES 
+	}
+	
+	
+	
+	
+	public function updateCokeId($id_fb, $id_coke){
+		//ACTUALIZO REGISTRO CON ID COCACOLA VÁLIDO
+	}
+	
+	
+	
+
 	
 	public function guardaAvatar($jugador){
 		//ESPERO DATOS USUARIO
-		$id_fb = $jugador[0];
-		$nombre = $jugador[1];
-		$sexo = $jugador[2];
-		$id_coke = $jugador[3];
-		$id_avatar = $jugador[4];
-		$fase = $jugador[5];
-		$avatar = $jugador[6];
+		$id_fb = $jugador['id_fb'];
+		$nombre = $jugador['nombre'];
+		$sexo = $jugador['sexo'];
+		$id_coke = '';
+		$id_avatar = $jugador['id_avatar'];
+		$fase = $jugador['fase'];
+		$avatar = $jugador['avatar'];
 		$registro = '';
 	
 		
@@ -402,7 +426,7 @@ class ContactService
 			}else{	// SI HAY CONN, LANZO QUERY
 					
 					//$db = oci_parse($conn,'INSERTO TABLA AVATAR');
-					$db = oci_parse($conn,'INSERT INTO avatar ("id", "id_fb", "sexo", "pelo", "ojos", "boca", "gafas", "sombrero", "camisa", "pantalon", "zapatos", "top", "falda") VALUES(sequence_name.nextval, '.$id_fb.', '.$sexo.', '.$jugador[6]['pelo'].', '.$jugador[6]['ojos'].', '.$jugador[6]['boca'].', '.$jugador[6]['gafas'].', '.$jugador[6]['sombrero'].', '.$jugador[6]['camisa'].', '.$jugador[6]['pantalon'].', '.$jugador[6]['zapatos'].', '.$jugador[6]['top'].', '.$jugador[6]['falda'].')');
+					$db = oci_parse($conn,'INSERT INTO avatar ("id", "id_fb", "sexo", "pelo", "ojos", "boca", "gafas", "sombrero", "camisa", "pantalon", "zapatos", "top", "falda") VALUES(sequence_name.nextval, '.$id_fb.', '.$sexo.', '.$avatar['pelo'].', '.$avatar['ojos'].', '.$avatar['boca'].', '.$avatar['gafas'].', '.$avatar['sombrero'].', '.$avatar['camisa'].', '.$avatar['pantalon'].', '.$avatar['zapatos'].', '.$avatar['top'].', '.$avatar['falda'].')');
 					
 					$result = oci_execute($db);
 					
@@ -418,8 +442,8 @@ class ContactService
 							}
 														
 								if ( $result2 ) {
-									//CAMBIAR ESTRUCTURA DE TABLA
-									$db3 = oci_parse($conn,'INSERT INTO jugadores ("id", "id_fb", "nombre", "sexo", "id_coke", "id_avatar", "fase", "puntos_granja", "puntos_huerto", "puntos", "ultimo_canje", "id_receta", "registro") VALUES(seq_jugadores_id.nextval, '.$nombre.', '.$sexo.', '.$id_coke.', '.$row2['id'].', '.'1'.', '.'0'.', '.'0'.', '.'0'.', '.'NULL'.', '.rand(1, 4).', current_timestamp)');
+									
+									$db3 = oci_parse($conn,'INSERT INTO jugadores ("id", "id_fb", "nombre", "sexo", "id_coke", "id_avatar", "registro", "ptos1", "ptos2", "ptos3", "compartido") VALUES(seq_jugadores_id.nextval, '.$nombre.', '.$sexo.', '.$id_coke.', '.$row2['id'].', current_timestamp, '.'0'.', '.'0'.', '.'0'.', '.'0'.' )');
 									$result3 = oci_execute($db3);
 									
 										if( $result3 ){
@@ -451,8 +475,9 @@ class ContactService
 ***************************************************************************************/
 
 
-public function dameJugador(){
-		
+public function dameJugador($id_fb){
+			$id_fb = "'".$id_fb."'";	
+			
 			// CONECTO
 			$conn = oci_connect('ACDNWEB','pmf45cdn','KONAT','WE8ISO8859P1');
 			//SI NO HAY MUESTRO ERROR
@@ -465,34 +490,51 @@ public function dameJugador(){
 				
 			// SI HAY, LANZO QUERY	
 			}else{
-					$db = oci_parse($conn,'SELECT * FROM jugadores WHERE "id_fb" = 812657877');
-					$result = oci_execute($db);
-					
-					if ($result) {
+					$db = oci_parse($conn,'SELECT * FROM jugadores WHERE "id_fb" = '.$id_fb.' ');
+					oci_execute($db);
 	
-							$data = array();
-							while ($row=oci_fetch_array($db,OCI_ASSOC+OCI_RETURN_LOBS))
-							{	
-								print_r($row);
-								array_push($data, $row);
-							}
-							echo '------------------------------------';
-							print_r($data);
+					oci_fetch_all($db, $array);
+					unset($array);
+					$num_rows = oci_num_rows($db);
+	
+					if($num_rows > 0){
 							
-							$db2 = oci_parse($conn,'SELECT * FROM elem_avatar WHERE "id" = '.$row['id_avatar'].'');
+							$db2 = oci_parse($conn,'SELECT * FROM jugadores WHERE "id_fb" = '.$id_fb.' ');
 							$result2 = oci_execute($db2);
 							
-							//print_r($data);
+							if($result2){
+								$data = array();
+								while ($row2=oci_fetch_array($db2,OCI_ASSOC+OCI_RETURN_LOBS))
+								{	
+									array_push($data, $row2);
+								}
+								
+								$db3 = oci_parse($conn,'SELECT * FROM elem_avatar WHERE "id" = '.$row2['id_avatar'].'');
+								$result3 = oci_execute($db3);
+								
+									if($result3){
+										while ($row3=oci_fetch_array($db3,OCI_ASSOC+OCI_RETURN_LOBS))
+										{	
+											array_push($data, $row3);
+										}
+										
+										return(json_encode($data));
+									
+									}else{
+										$e = oci_error($db3);  // For oci_execute errors pass the statement handle
+										return(trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR));
+									}
+								
+							}else{
+								$e = oci_error($db2);  // For oci_execute errors pass the statement handle
+								return(trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR));
+							}
 							
 					//SI PETA QUERY MUESTRO ERROR
 					}else{
-							$e = oci_error($db);  // For oci_execute errors pass the statement handle
-							print htmlentities($e['message']);
-							print "\n<pre>\n";
-							print htmlentities($e['sqltext']);
-							printf("\n%".($e['offset']+1)."s", "^");
-							print  "\n</pre>\n";
-							return('KO_QUERY');
+							//$e = oci_error($db);  // For oci_execute errors pass the statement handle
+							//return(trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR));
+							return('KO');
 					}
 					
 					oci_close($conn) ;

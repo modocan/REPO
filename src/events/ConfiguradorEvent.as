@@ -20,7 +20,9 @@ package events
 		public static const CARGAR_AMIGOS:String = 'ConfiguradorEvent.CARGAR_AMIGOS';
 		public static const NOMBRE_USUARIO:String = 'ConfiguradorEvent.NOMBRE_USUARIO';
 		public static const AMIGOS_QUE_JUGARON:String = 'ConfiguradorEvent.AMIGOS_QUE_JUGARON';
-			
+
+		public static const MIEVENTO:String = 'ConfiguradorEvent.MIEVENTO';
+
 		private var _datos:Object = new Object();
 			
 		public function ConfiguradorEvent(tipo:String) {

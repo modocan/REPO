@@ -99,20 +99,24 @@
 
         function conectaFB()
         {
-            FB.init({appId:APP_ID, status: true, cookie: true, oauth:true});
+            console.log('[LLAMADA FLASH]');
+            // FB.init({appId:APP_ID, status: true, cookie: true, oauth:true});
             FB.login(function(response)
             {
+
+               console.log('[LOGIN]');
 
                 if(response.authResponse)
                 {
 
                     FB.api('me', function(res){
+                        console.log('[ME]');
                         fl = document.getElementById('imagen');
                         fl.reciboDatos(res);
-						
+
                     });
 					/*FB.api('me/friends', function(res){
-						thisMovie("imagen").reciboTodosLosAmigos(res); 
+						thisMovie("imagen").reciboTodosLosAmigos(res);
 						console.log('trajo a los amigos');
 				    });*/
 

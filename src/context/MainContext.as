@@ -10,8 +10,11 @@ import flash.display.DisplayObjectContainer;
 	
 	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.mvcs.Context;
-	
-	// Imports del proyecto
+
+import services.IUsuarioService;
+import services.UsuarioService;
+
+// Imports del proyecto
 	
 	import models.IDBModel;
 	import models.DBModel;
@@ -57,8 +60,8 @@ import flash.display.DisplayObjectContainer;
 	
 	    override public function startup():void
 	    {
+            mapModels();
 	        mapCommands();
-	        mapModels();
 	        mapViews();
 	
 	        super.startup();
@@ -75,6 +78,7 @@ import flash.display.DisplayObjectContainer;
 	    private function mapModels():void
 	    {
 			injector.mapSingletonOf(IUsuarioModel, UsuarioModel);
+			injector.mapSingletonOf(IUsuarioService, UsuarioService);
 	        injector.mapSingletonOf(IDBModel, DBModel);
 			injector.mapSingletonOf(IFBService, FBService);
 	    }

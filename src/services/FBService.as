@@ -60,7 +60,10 @@ public class FBService extends Actor implements IFBService {
         usuario_model.setNombreUsuario(success.first_name + ' ' + success.last_name);
         usuario_model.set_idFB(success.id);
 
+        Debug.trace('[Recibo de JS]');
+
         dispatch(new UsuarioEvent(UsuarioEvent.FB_INICIADO));
+
 
 
         // TODO primero comprobamos si el jugador existe en BBDD y luego hacemos el resto

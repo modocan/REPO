@@ -13,7 +13,7 @@ package views
 	import flash.utils.getDefinitionByName;
 	import flash.text.TextField;
 	
-	import mx.logging.AbstractTarget;
+	//import mx.logging.AbstractTarget;
 	
 	public class SubMenuCategoriasView extends MovieClip
 	{

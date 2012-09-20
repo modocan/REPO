@@ -1,6 +1,8 @@
 package commands
 {
 
+import events.UsuarioEvent;
+
 import org.robotlegs.mvcs.Command;
 
 import services.IFBService;
@@ -23,6 +25,8 @@ public class CreacionCommand extends Command {
 			contextView.addChild(new InterfazView());
 
             fb.init();
+
+            //eventDispatcher.dispatchEvent(new UsuarioEvent(UsuarioEvent.FB_INICIADO));
 
 			// TODO de momentos instanciamos "a pelo" el configurador. Luego habrá que comprobar para decidir
 			//contextView.addChildAt(new MainView(), 0);

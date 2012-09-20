@@ -7,8 +7,8 @@ import org.robotlegs.mvcs.Actor;
 	public class UsuarioModel extends Actor implements IUsuarioModel {
 
         private var login_cocacola:String;
-        private var nombre_usuario:String;
-        private var id_facebook:String;
+        private var nombre_usuario:String = 'Gonzalo CEdillo';
+        private var id_facebook:String = '1829890023';
 
 
 	    public function UsuarioModel() {

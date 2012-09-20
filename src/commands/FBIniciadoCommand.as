@@ -6,6 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 package commands {
+import com.hexagonstar.util.debug.Debug;
+
 import models.IUsuarioModel;
 
 import org.robotlegs.mvcs.Command;
@@ -27,7 +29,8 @@ public class FBIniciadoCommand extends Command{
 
     override public function execute():void
     {
-        usuario_service.dameUsuario(usuario.get_idFB());
+        Debug.trace('[Hago conexion]');
+        usuario_service.dameUsuario('812657877');
     }
 
 
