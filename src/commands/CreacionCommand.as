@@ -29,7 +29,7 @@ public class CreacionCommand extends Command {
             //eventDispatcher.dispatchEvent(new UsuarioEvent(UsuarioEvent.FB_INICIADO));
 
 			// TODO de momentos instanciamos "a pelo" el configurador. Luego habrá que comprobar para decidir
-			//contextView.addChildAt(new MainView(), 0);
+			contextView.addChildAt(new MainView(), 0);
             //
 
             //contextView.addChildAt(new PruebaView(), 0);
